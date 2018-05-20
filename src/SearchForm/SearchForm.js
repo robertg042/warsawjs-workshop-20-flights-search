@@ -15,21 +15,26 @@ class SearchForm extends Component {
     this.setState({[event.target.name]: event.target.value});
   };
 
-  handleReset = () => {
-    console.log("handleReset");
-    console.log(`this.state.toSelect: ${this.state.toSelect}`);
+  handleReset = (event) => {
+    event.preventDefault();
+    // console.log("handleReset");
+    // console.log(`this.state.toSelect: ${this.state.toSelect}`);
     this.setState({...this.props.initialValues})
   };
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const {fromSelect, toSelect, departureDate, returnDate}  = this.state;
+    this.props.handleSubmit({fromSelect, toSelect, departureDate, returnDate});
+  };
+
   render() {
-    console.log("render");
-    console.log(`this.state.toSelect: ${this.state.toSelect}`);
     return (
       <form
         name="search"
         method="POST"
-        onSubmit={this.props.handleSubmit(...this.state)}
-        onReset={this.handleReset}
+        onSubmit={this.handleSubmit}
+        // onReset={this.handleReset}
       >
         <div className={classes.SearchForm}>
           <label htmlFor="fromSelect">From:</label>
@@ -73,7 +78,7 @@ class SearchForm extends Component {
                  value={this.state.returnDate}
                  onChange={this.handleFromChange}/>
           <button type={"submit"}>Search</button>
-          <button type={"reset"}>Reset</button>
+          <button onClick={this.handleReset} type={"button"}>Reset</button>
         </div>
       </form>
     );

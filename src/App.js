@@ -25,10 +25,17 @@ class App extends Component {
   }
 
   handleSubmitSearchForm = (params) => {
-    // const {fromSelect, toSelect, departureDate, returnDate}  = params;
-    // console.log(params);
-    // this.setState({isLoading: true});
-    // api.searchFlights()
+    this.setState({isLoading: true});
+    api.searchFlights(params)
+      .then(flights => {
+        console.log(flights);
+        this.setState({
+          flights,
+          isLoading: false,
+          searchParams: params
+        });
+      })
+      .catch(err => console.log(err));
   };
 
   render() {
@@ -43,7 +50,6 @@ class App extends Component {
         returnDate: new Date().toISOString().substring(0, 10)
       };
       if (this.state.airports.length > 1) {
-        console.log("aaa");
         searchFormInitialValues.fromSelect = this.state.airports[0].code;
         searchFormInitialValues.toSelect = this.state.airports[1].code;
       }
