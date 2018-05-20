@@ -1,4 +1,4 @@
-const readAirportList = () => {
+export const readAirportList = () => {
   return window.fetch("https://warsawjs-flights-api.herokuapp.com/airports")
     .then(response => {
       return response.json();
@@ -6,7 +6,7 @@ const readAirportList = () => {
     .catch(err => console.log(err));
 };
 
-const searchFlights = (params) => {
+export const searchFlights = (params) => {
   const {from, to, departureDate, returnDate} = params;
   return window.fetch(`https://warsawjs-flights-api.herokuapp.com/flights/${from}/${to}/${departureDate}/${returnDate}`)
     .then(response => {
