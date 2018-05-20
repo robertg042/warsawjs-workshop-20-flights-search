@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.global.css';
 import * as api from './api';
 import SearchForm from './SearchForm/SearchForm';
+import FlightList from './FlightList/FlightList';
 
 class App extends Component {
   state = {
@@ -61,7 +62,7 @@ class App extends Component {
         />
       </div>
     } else if (!this.state.isLoading && this.state.flights) {
-      content = <div>Flight list</div>
+      content = <FlightList flights={this.state.flights}/>
     }
 
     // console.log(this.state.airports);
